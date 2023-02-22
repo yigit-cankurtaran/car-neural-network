@@ -31,6 +31,8 @@ class Car {
     this.y -= this.speed;
     if (this.speed < 0) this.speed += this.friction;
     // applies friction to the car while it's moving backwards
+    // but it means the car's always moving because the speed is never exactly 0.
+    if (Math.abs(this.speed) < this.friction) this.speed = 0;
     if (this.controls.left) {
       // this.x -= 2;
     }
