@@ -9,7 +9,9 @@ class Car {
     this.acceleration = 0.4;
     this.maxSpeed = 5;
     // different values than the tutorial. i wanted a bit faster
-    this.friction = 0.03;
+    this.friction = 0.05;
+    this.angle = 0;
+    // this.maxAngle = 0.1;
 
     this.controls = new Controls();
   }
@@ -36,23 +38,28 @@ class Car {
     // this makes it so that if the car's speed is less than the friction,
     // the car's speed will be 0.
     if (this.controls.left) {
-      this.x -= 2;
+      this.angle += 0.03;
     }
     if (this.controls.right) {
-      this.x += 2;
+      this.angle -= 0.03;
     }
   }
 
   draw(ctx) {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(-this.angle);
+    // the above code rotates the car to the left or right.
     ctx.beginPath();
     ctx.rect(
       // the car will be a simple rectangle
-      this.x - this.width / 2,
+      -this.width / 2,
       // the x is going to be in the center of the car
-      this.y - this.height / 2,
+      -this.height / 2,
       this.width,
       this.height
     );
     ctx.fill();
+    ctx.restore();
   }
 }
