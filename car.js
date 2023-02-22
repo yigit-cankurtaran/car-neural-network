@@ -17,12 +17,8 @@ class Car {
   }
 
   update() {
-    if (this.controls.forward) {
-      this.speed += this.acceleration;
-    }
-    if (this.controls.reverse) {
-      this.speed -= this.acceleration;
-    }
+    if (this.controls.forward) this.speed += this.acceleration;
+    if (this.controls.reverse) this.speed -= this.acceleration;
     if (this.speed > this.maxSpeed) this.speed = this.maxSpeed;
     // we limit the max speed on the forward direction.
     if (this.speed < -this.maxSpeed / 2) this.speed = -this.maxSpeed / 2;
@@ -30,19 +26,17 @@ class Car {
     // car going backwards will be slower than car going forwards.
     if (this.speed > 0) this.speed -= this.friction;
     // friction is applied to the car while it's moving forward
-    this.y -= this.speed;
     if (this.speed < 0) this.speed += this.friction;
     // applies friction to the car while it's moving backwards
     // but it means the car's always moving because the speed is never exactly 0.
     if (Math.abs(this.speed) < this.friction) this.speed = 0;
     // this makes it so that if the car's speed is less than the friction,
     // the car's speed will be 0.
-    if (this.controls.left) {
-      this.angle += 0.03;
-    }
-    if (this.controls.right) {
-      this.angle -= 0.03;
-    }
+    if (this.controls.left) this.angle += 0.03;
+    if (this.controls.right) this.angle -= 0.03;
+    // this makes the car turn left and right.
+    this.x -= Math.sin(this.angle) * this.speed;
+    this.y -= Math.cos(this.angle) * this.speed;
   }
 
   draw(ctx) {
