@@ -4,7 +4,7 @@ canvas.width = 200;
 const ctx = canvas.getContext("2d");
 const road = new Road(canvas.width / 2, canvas.width * 0.9);
 // we made the width a bit smaller to give the ends a little margin
-const car = new Car(100, 100, 30, 50);
+const car = new Car(road.getLaneCenter(1), 100, 30, 50);
 // car.draw(ctx);
 // commented because we will add it to the function.
 // the function will call itself again and again.
