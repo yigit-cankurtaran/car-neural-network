@@ -29,7 +29,7 @@ class Road {
       //   drawing lines on the left
       // i is the lane count the end is gonna be 1, the rest is gonna be percentages
       // lerp is a function that takes two numbers and returns a number between them
-      const y = lerp(this.top, this.bottom, i / this.laneCount);
+    //   const y = lerp(this.top, this.bottom, i / this.laneCount);
     }
   }
 }
