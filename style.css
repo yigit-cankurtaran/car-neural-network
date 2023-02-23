@@ -1,11 +1,9 @@
-body {
-  margin: 0;
-  background: darkgray;
-  overflow: hidden;
-  /* overflow is important because if the canvas is too big we'll get a scroll bar */
-  text-align: center;
+body{
+    margin:0;
+    background:darkgray;
+    overflow:hidden;
+    text-align:center;
 }
-
-#theCanvas {
-  background: lightgray;
+#myCanvas{
+    background:lightgray;
 }

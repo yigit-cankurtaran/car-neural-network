@@ -1,23 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Self-Driving Car Without Libraries</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="./style.css" rel="stylesheet" />
-    <script src="./sensor.js" defer></script>
-    <script src="./utils.js" defer></script>
-    <script src="./road.js" defer></script>
-    <script src="./controls.js" defer></script>
-    <script src="./car.js" defer></script>
-    <script src="./main.js" defer></script>
-    <!-- the tutorial also doesn't use defer, but i'll use them because they work better -->
-    <!-- the tutorial declares the files with just their names, but i'm declaring them with path -->
-    <!-- due to it being best practice -->
-  </head>
-
-  <body>
-    <canvas id="theCanvas"></canvas>
-    <!-- the tutorial also links the js file here, but i'll link it in the head. -->
-  </body>
+<head>
+    <title>Self-driving car - No libraries</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+    <script src="sensor.js"></script>
+    <script src="utils.js"></script>
+    <script src="road.js"></script>
+    <script src="controls.js"></script>
+    <script src="car.js"></script>
+    <script src="main.js"></script>
+</body>
 </html>
