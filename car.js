@@ -14,25 +14,30 @@ class Car {
     this.angle = 0;
     this.damaged = false;
 
-    this.sensor = new Sensor(this);
+    if (controlType != "DUMMY") this.sensor = new Sensor(this);
     // passing the car to the sensor object. it will belong to the car.
     this.controls = new Controls(controlType);
   }
 
-  update(roadBorders) {
+  update(roadBorders, traffic) {
     // i don't want the car moving if it's damaged
     if (!this.damaged) {
       this.#move();
       this.polygon = this.#createPolygon();
-      this.damaged = this.#assessDamage(roadBorders);
+      this.damaged = this.#assessDamage(roadBorders, traffic);
     }
-    this.sensor.update(roadBorders);
+    if (this.sensor) this.sensor.update(roadBorders, traffic);
     // updates the sensor along with the movement
   }
 
-  #assessDamage(roadBorders) {
+  #assessDamage(roadBorders, traffic) {
     for (let i = 0; i < roadBorders.length; i++) {
       if (polysIntersect(this.polygon, roadBorders[i])) {
+        return true;
+      }
+    }
+    for (let i = 0; i < traffic.length; i++) {
+      if (polysIntersect(this.polygon, traffic[i].polygon)) {
         return true;
       }
     }
@@ -111,7 +116,9 @@ class Car {
       ctx.lineTo(this.polygon[i].x, this.polygon[i].y);
     }
     ctx.fill();
-    this.sensor.draw(ctx);
+
+    if (this.sensor) this.sensor.draw(ctx);
     // the car will now draw its own sensor.
+    // only the car we control
   }
 }

@@ -17,10 +17,10 @@ animate();
 
 function animate() {
   for (let i = 0; i < traffic.length; i++) {
-    traffic[i].update(road.borders);
+    traffic[i].update(road.borders, []);
   }
-  // above code updates the other chars as well
-  car.update(road.borders);
+  car.update(road.borders, traffic);
+
   canvas.height = window.innerHeight;
   // moving this here makes it so that it updates with every drawing
   // also fixes the issue of the car being stretched on the screen
