@@ -18,9 +18,10 @@ function animate() {
   // moving this here makes it so that it updates with every drawing
   // also fixes the issue of the car being stretched on the screen
   ctx.save();
-  ctx.translate(0, -car.y);
+  ctx.translate(0, -car.y + canvas.height * 0.7);
   road.draw(ctx);
   car.draw(ctx);
+  // centers the camera on the car, puts the car on the lower part of the screen
   ctx.restore();
   requestAnimationFrame(animate);
 }
