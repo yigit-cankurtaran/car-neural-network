@@ -47,6 +47,8 @@ class Car {
       x: this.x - Math.sin(Math.PI + this.angle + alpha) * rad,
       y: this.y - Math.cos(Math.PI + this.angle + alpha) * rad,
     });
+    // console.table(points);
+    // works perfectly
     return points;
   }
 
