@@ -61,14 +61,14 @@ class Road {
       // lerp is a function that takes two numbers and returns a number between them
       //   const y = lerp(this.top, this.bottom, i / this.laneCount);
     }
-    
+
     ctx.setLineDash([]);
-    this.borders.forEach(border => {
+    this.borders.forEach((border) => {
       ctx.beginPath();
       ctx.moveTo(border[0].x, border[0].y);
       // begins path, moves to the first border in x
       ctx.lineTo(border[1].x, border[1].y);
       ctx.stroke();
-    })
+    });
   }
 }
