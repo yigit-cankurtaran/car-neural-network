@@ -11,13 +11,16 @@ class Car {
     // different values than the tutorial. i wanted a bit faster
     this.friction = 0.05;
     this.angle = 0;
-    // this.maxAngle = 0.1;
 
+    this.sensor = new Sensor(this);
+    // passing the car to the sensor object. it will belong to the car.
     this.controls = new Controls();
   }
 
   update() {
     this.#move();
+    this.sensor.update();
+    // updates the sensor along with the movement
   }
 
   #move() {
@@ -69,5 +72,7 @@ class Car {
     );
     ctx.fill();
     ctx.restore();
+    this.sensor.draw(ctx);
+    // the car will now draw its own sensor.
   }
 }
