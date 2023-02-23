@@ -17,8 +17,11 @@ function animate() {
   canvas.height = window.innerHeight;
   // moving this here makes it so that it updates with every drawing
   // also fixes the issue of the car being stretched on the screen
+  ctx.save();
+  ctx.translate(0, -car.y);
   road.draw(ctx);
   car.draw(ctx);
+  ctx.restore();
   requestAnimationFrame(animate);
 }
 // ran into the problem of the car stretching
