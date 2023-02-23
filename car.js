@@ -1,5 +1,5 @@
 class Car {
-  constructor(x, y, width, height, controlType) {
+  constructor(x, y, width, height, controlType, maxSpeed = 5) {
     this.x = x;
     this.y = y;
     this.width = width;
@@ -7,8 +7,9 @@ class Car {
 
     this.speed = 0;
     this.acceleration = 0.4;
-    this.maxSpeed = 5;
-    // different values than the tutorial. i wanted a bit faster
+    this.maxSpeed = maxSpeed;
+    // cars by default will have a max speed of 5
+    // but i can change the max speed of other cars in main.js
     this.friction = 0.05;
     this.angle = 0;
     this.damaged = false;

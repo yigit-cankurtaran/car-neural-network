@@ -11,7 +11,7 @@ const car = new Car(road.getLaneCenter(1), 100, 30, 50, "KEYS");
 // we made the car first, now we'll add it to the html
 
 // traffic is going to be an array of cars.
-const traffic = [new Car(road.getLaneCenter(1), -100, 30, 50, "DUMMY")];
+const traffic = [new Car(road.getLaneCenter(1), -100, 30, 50, "DUMMY", 2)];
 
 animate();
 
