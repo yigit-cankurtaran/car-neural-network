@@ -1,21 +1,59 @@
 class Sensor {
   constructor(car) {
     this.car = car;
-    this.rayCount = 3;
-    this.rayLength = 100;
+    this.rayCount = 40;
+    this.rayLength = 170;
     //   the range of the sensors
-    this.raySpread = Math.PI / 4;
+    this.raySpread = Math.PI / 2;
     // the same as 45 degrees
 
     this.rays = [];
+    this.readings = [];
   }
 
-  update() {
+  update(_roadBorders) {
+    this.#castRays();
+    this.readings = [];
+    for (let i = 0; i < this.rays.length; i++) {
+      this.readings.push(this.#getReading(this.rays[i]), _roadBorders);
+    }
+  }
+
+  #getReading(ray, _roadBorders) {
+    let touches = [];
+    for (let i = 0; i < _roadBorders.length; i++) {
+      const touch = getIntersection(
+        ray[0],
+        ray[1],
+        _roadBorders[i][0],
+        _roadBorders[i][1]
+      );
+      if (touch) {
+        touches.push(touch);
+      }
+    }
+
+    if (touches.length == 0) {
+      return null;
+    } else {
+      const offsets = touches.map((e) => e.offset);
+      // TODO: look up what this does.
+      const minOffset = Math.min(...offsets);
+      return touches.find((e) => e.offset == minOffset);
+    }
+  }
+  // let closest = Infinity
+
+  #castRays() {
     this.rays = [];
     for (let i = 0; i < this.rayCount; i++) {
       const rayAngle =
-        lerp(this.raySpread / 2, -this.raySpread / 2, i / (this.rayCount - 1)) +
-        this.car.angle;
+        lerp(
+          this.raySpread / 2,
+          -this.raySpread / 2,
+          this.rayCount == 1 ? 0.5 : i / (this.rayCount - 1)
+          // we needed to add a check, else it doesn't work with the ray set to 1
+        ) + this.car.angle;
       // adding the car's angle to the ray angle makes the sensor turn with the car.
 
       const start = { x: this.car.x, y: this.car.y };
@@ -27,13 +65,22 @@ class Sensor {
       // defining a segment. like how we did with the lanes
     }
   }
+
   draw(ctx) {
     for (let i = 0; i < this.rayCount; i++) {
+      let end = this.rays[i][1];
+      if (this.readings[i]) end = this.readings[i];
       ctx.beginPath();
       ctx.lineWidth = 2;
       ctx.strokeStyle = "yellow";
       ctx.moveTo(this.rays[i][0].x, this.rays[i][0].y);
-      ctx.lineTo(this.rays[i][1].x, this.rays[i][1].y);
+      ctx.lineTo(end.x, end.y);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "black";
+      ctx.moveTo(this.rays[i][1].x, this.rays[i][1].y);
+      ctx.lineTo(end.x, end.y);
       ctx.stroke();
     }
   }
