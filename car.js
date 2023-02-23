@@ -11,6 +11,7 @@ class Car {
     // different values than the tutorial. i wanted a bit faster
     this.friction = 0.05;
     this.angle = 0;
+    this.damaged = false;
 
     this.sensor = new Sensor(this);
     // passing the car to the sensor object. it will belong to the car.
@@ -20,8 +21,18 @@ class Car {
   update(roadBorders) {
     this.#move();
     this.polygon = this.#createPolygon();
+    this.damaged = this.#assessDamage(roadBorders);
     this.sensor.update(roadBorders);
     // updates the sensor along with the movement
+  }
+
+  #assessDamage(roadBorders) {
+    for (let i = 0; i < roadBorders.length; i++) {
+      if (polysIntersect(this.polygon, roadBorders[i])) {
+        return true;
+      }
+    }
+    return false;
   }
 
   // because we don't know the corners of the car, to implement collision we need to figure that out first
@@ -49,6 +60,8 @@ class Car {
     });
     // console.table(points);
     // works perfectly
+    // changing the values above will give other shapes to our car.
+    // experiment later
     return points;
   }
 
@@ -86,6 +99,8 @@ class Car {
   }
 
   draw(ctx) {
+    if (this.damaged) ctx.fillStyle = "gray";
+    else ctx.fillStyle = "black";
     ctx.beginPath();
     ctx.moveTo(this.polygon[0].x, this.polygon[0].y);
     for (let i = 1; i < this.polygon.length; i++) {
