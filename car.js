@@ -1,5 +1,5 @@
 class Car {
-  constructor(x, y, width, height) {
+  constructor(x, y, width, height, controlType) {
     this.x = x;
     this.y = y;
     this.width = width;
@@ -15,7 +15,7 @@ class Car {
 
     this.sensor = new Sensor(this);
     // passing the car to the sensor object. it will belong to the car.
-    this.controls = new Controls();
+    this.controls = new Controls(controlType);
   }
 
   update(roadBorders) {
