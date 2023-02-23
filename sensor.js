@@ -38,6 +38,7 @@ class Sensor {
       const offsets = touches.map((e) => e.offset);
       const minOffset = Math.min(...offsets);
       return touches.find((e) => e.offset == minOffset);
+      // look up what this code does
     }
   }
 
@@ -80,6 +81,8 @@ class Sensor {
       ctx.moveTo(this.rays[i][1].x, this.rays[i][1].y);
       ctx.lineTo(end.x, end.y);
       ctx.stroke();
+      // divides the road to 2 parts, before and after the borders
+      // before is yellow, after is black
     }
   }
 }
