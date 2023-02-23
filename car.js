@@ -19,9 +19,12 @@ class Car {
   }
 
   update(roadBorders) {
-    this.#move();
-    this.polygon = this.#createPolygon();
-    this.damaged = this.#assessDamage(roadBorders);
+    // i don't want the car moving if it's damaged
+    if (!this.damaged) {
+      this.#move();
+      this.polygon = this.#createPolygon();
+      this.damaged = this.#assessDamage(roadBorders);
+    }
     this.sensor.update(roadBorders);
     // updates the sensor along with the movement
   }
