@@ -14,6 +14,10 @@ class Car {
 
     if (controlType != "DUMMY") {
       this.sensor = new Sensor(this);
+      this.brain = new NeuralNetwork(
+        [this.sensor.rayCount, 6, 4]
+        // output neuron is 4 layers, because we want 4 directions
+      );
     }
     this.controls = new Controls(controlType);
   }
@@ -26,6 +30,12 @@ class Car {
     }
     if (this.sensor) {
       this.sensor.update(roadBorders, traffic);
+      const offsets = this.sensor.readings.map((s) =>
+        s == null ? 0 : 1 - s.offset
+        // we want the neurons to receive low values while the object is far away
+      );
+      const outputs = NeuralNetwork.feedForward(offsets,this.brain);
+      console.log(outputs);
     }
   }
 

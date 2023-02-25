@@ -1,7 +1,7 @@
 // create a class for a neural network
 //
 
-class Network {
+class NeuralNetwork {
   constructor(neuronCounts) {
     this.levels = [];
     // our neural network will be an array of levels
